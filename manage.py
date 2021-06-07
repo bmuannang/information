@@ -1,6 +1,7 @@
 from flask import Flask
 #此模块用来指定session的保存位置
 from flask import session
+from flask.ext.script import Manager
 from flask.ext.session import Session
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf import CSRFProtect
@@ -51,6 +52,7 @@ CSRFProtect(app)
 #设置session保存制定位置
 Session(app)
 
+manager = Manager(app)
 @app.route('/')
 def index():
     session["name"] = "itheima"
@@ -58,4 +60,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run()
+    manager.run()
