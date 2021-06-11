@@ -1,6 +1,7 @@
 from flask import Flask
 #此模块用来指定session的保存位置
 from flask import session
+from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 from flask.ext.session import Session
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -53,6 +54,13 @@ CSRFProtect(app)
 Session(app)
 
 manager = Manager(app)
+
+#将app与db关联
+Migrate(app,db)
+
+#将迁移命令添加到manager中
+manager.add_command('db',MigrateCommand)
+
 @app.route('/')
 def index():
     session["name"] = "itheima"
